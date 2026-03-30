@@ -60,9 +60,10 @@ type AgentsConfig struct {
 
 // AgentItemConfig holds individual agent configuration
 type AgentItemConfig struct {
-	Name string `mapstructure:"name"`
-	Type string `mapstructure:"type"`
-	Desc string `mapstructure:"desc"`
+	Name   string                 `mapstructure:"name"`
+	Type   string                 `mapstructure:"type"`
+	Desc   string                 `mapstructure:"desc"`
+	Config map[string]interface{} `mapstructure:"config"`
 }
 
 // EnginesConfig holds engine configurations

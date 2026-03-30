@@ -39,7 +39,7 @@ func (p *AgentPool) Setup(cfg *config.AgentsConfig) error {
 	defer p.mu.Unlock()
 
 	for _, agentCfg := range cfg.SupportList {
-		agent := NewAgent(agentCfg.Name, agentCfg.Desc)
+		agent := NewAgent(agentCfg.Name, agentCfg.Desc, agentCfg.Config)
 		if agent != nil {
 			p.agents[agent.Name()] = agent
 		}
