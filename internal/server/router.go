@@ -35,6 +35,7 @@ func SetupRouter(cfg *config.Config) *gin.Engine {
 func setupRoutes(router *gin.Engine) {
 	agentHandler := handlers.NewAgentHandler()
 	ttsHandler := handlers.NewTTSHandler()
+	asrHandler := handlers.NewASRHandler()
 
 	v0 := router.Group(GlobalPrefix)
 	{
@@ -54,6 +55,16 @@ func setupRoutes(router *gin.Engine) {
 			tts.GET("/engine/:engine", ttsHandler.GetEngineParams)
 			tts.GET("/engine/:engine/voice", ttsHandler.GetVoiceList)
 			tts.POST("/engine", ttsHandler.Infer)
+		}
+
+		asr := v0.Group("/asr/v0")
+		{
+			asr.GET("/engine", asrHandler.GetEngineList)
+			asr.GET("/engine/default", asrHandler.GetDefaultEngine)
+			asr.GET("/engine/:engine", asrHandler.GetEngineParams)
+			asr.POST("/engine", asrHandler.Infer)
+			asr.POST("/engine/file", asrHandler.InferFile)
+			asr.GET("/engine/stream", asrHandler.StreamInfer)
 		}
 	}
 }

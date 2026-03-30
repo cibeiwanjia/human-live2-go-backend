@@ -5,6 +5,7 @@ import (
 	"sync"
 
 	"github.com/wan-h/awesome-digital-human-live2d/go-backend/internal/config"
+	"github.com/wan-h/awesome-digital-human-live2d/go-backend/internal/engine/asr"
 	"github.com/wan-h/awesome-digital-human-live2d/go-backend/internal/engine/tts"
 	"github.com/wan-h/awesome-digital-human-live2d/go-backend/internal/protocol"
 )
@@ -58,6 +59,22 @@ func (p *EnginePool) Setup(cfg *config.EnginesConfig) error {
 	}
 	p.ttsDefault = cfg.TTS.Default
 
+	for _, engineCfg := range cfg.ASR.SupportList {
+		var engine ASREngine
+		switch engineCfg.Name {
+		case "FunASR":
+			engine = asr.NewFunASR(nil)
+		case "TencentASR":
+			engine = asr.NewTencentASR(nil)
+		case "DifyASR":
+			engine = asr.NewDifyASR(nil)
+		case "CozeASR":
+			engine = asr.NewCozeASR(nil)
+		}
+		if engine != nil {
+			p.asrEngines[engine.Name()] = engine
+		}
+	}
 	p.asrDefault = cfg.ASR.Default
 
 	return nil
