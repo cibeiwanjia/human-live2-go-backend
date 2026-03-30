@@ -9,7 +9,9 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/wan-h/awesome-digital-human-live2d/go-backend/internal/agent"
 	"github.com/wan-h/awesome-digital-human-live2d/go-backend/internal/config"
+	"github.com/wan-h/awesome-digital-human-live2d/go-backend/internal/engine"
 	"github.com/wan-h/awesome-digital-human-live2d/go-backend/internal/pkg/logger"
 	"github.com/wan-h/awesome-digital-human-live2d/go-backend/internal/server"
 )
@@ -27,7 +29,19 @@ func main() {
 	}
 
 	logger.Infof("[System] Starting %s %s", cfg.Common.Name, cfg.Common.Version)
-	logger.Infof("[System] Config: %+v", cfg)
+	logger.Infof("[System] Config loaded")
+
+	agentPool := agent.GetPool()
+	if err := agentPool.Setup(&cfg.Agents); err != nil {
+		logger.Fatalf("[System] Failed to setup agent pool: %v", err)
+	}
+	logger.Infof("[System] Agent pool initialized, default: %s", agentPool.Default())
+
+	enginePool := engine.GetPool()
+	if err := enginePool.Setup(&cfg.Engines); err != nil {
+		logger.Fatalf("[System] Failed to setup engine pool: %v", err)
+	}
+	logger.Infof("[System] Engine pool initialized, TTS default: %s", enginePool.TTSDefault())
 
 	router := server.SetupRouter(cfg)
 

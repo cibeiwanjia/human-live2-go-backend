@@ -34,6 +34,7 @@ func SetupRouter(cfg *config.Config) *gin.Engine {
 // setupRoutes configures all API routes
 func setupRoutes(router *gin.Engine) {
 	agentHandler := handlers.NewAgentHandler()
+	ttsHandler := handlers.NewTTSHandler()
 
 	v0 := router.Group(GlobalPrefix)
 	{
@@ -44,6 +45,15 @@ func setupRoutes(router *gin.Engine) {
 			agent.GET("/engine/:engine", agentHandler.GetEngineParams)
 			agent.POST("/engine/:engine", agentHandler.CreateConversation)
 			agent.POST("/engine", agentHandler.StreamInfer)
+		}
+
+		tts := v0.Group("/tts/v0")
+		{
+			tts.GET("/engine", ttsHandler.GetEngineList)
+			tts.GET("/engine/default", ttsHandler.GetDefaultEngine)
+			tts.GET("/engine/:engine", ttsHandler.GetEngineParams)
+			tts.GET("/engine/:engine/voice", ttsHandler.GetVoiceList)
+			tts.POST("/engine", ttsHandler.Infer)
 		}
 	}
 }

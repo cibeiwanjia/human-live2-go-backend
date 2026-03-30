@@ -1,0 +1,36 @@
+package tts
+
+import "github.com/wan-h/awesome-digital-human-live2d/go-backend/internal/protocol"
+
+var edgeVoiceList = []protocol.VoiceDesc{
+	{Name: "zh-HK-HiuGaaiNeural", Gender: protocol.GENDER_TYPE_FEMALE},
+	{Name: "zh-HK-HiuMaanNeural", Gender: protocol.GENDER_TYPE_FEMALE},
+	{Name: "zh-HK-WanLungNeural", Gender: protocol.GENDER_TYPE_MALE},
+	{Name: "zh-CN-XiaoxiaoNeural", Gender: protocol.GENDER_TYPE_FEMALE},
+	{Name: "zh-CN-XiaoyiNeural", Gender: protocol.GENDER_TYPE_FEMALE},
+	{Name: "zh-CN-YunjianNeural", Gender: protocol.GENDER_TYPE_MALE},
+	{Name: "zh-CN-YunxiNeural", Gender: protocol.GENDER_TYPE_MALE},
+	{Name: "zh-CN-YunxiaNeural", Gender: protocol.GENDER_TYPE_MALE},
+	{Name: "zh-CN-YunyangNeural", Gender: protocol.GENDER_TYPE_MALE},
+	{Name: "zh-CN-liaoning-XiaobeiNeural", Gender: protocol.GENDER_TYPE_FEMALE},
+	{Name: "zh-TW-HsiaoChenNeural", Gender: protocol.GENDER_TYPE_FEMALE},
+	{Name: "zh-TW-YunJheNeural", Gender: protocol.GENDER_TYPE_MALE},
+	{Name: "zh-TW-HsiaoYuNeural", Gender: protocol.GENDER_TYPE_FEMALE},
+	{Name: "zh-CN-shaanxi-XiaoniNeural", Gender: protocol.GENDER_TYPE_FEMALE},
+	{Name: "en-AU-NatashaNeural", Gender: protocol.GENDER_TYPE_FEMALE},
+	{Name: "en-AU-WilliamNeural", Gender: protocol.GENDER_TYPE_MALE},
+	{Name: "en-CA-ClaraNeural", Gender: protocol.GENDER_TYPE_FEMALE},
+	{Name: "en-CA-LiamNeural", Gender: protocol.GENDER_TYPE_MALE},
+	{Name: "en-GB-LibbyNeural", Gender: protocol.GENDER_TYPE_FEMALE},
+	{Name: "en-GB-MaisieNeural", Gender: protocol.GENDER_TYPE_FEMALE},
+	{Name: "en-GB-RyanNeural", Gender: protocol.GENDER_TYPE_MALE},
+	{Name: "en-GB-SoniaNeural", Gender: protocol.GENDER_TYPE_FEMALE},
+	{Name: "en-GB-ThomasNeural", Gender: protocol.GENDER_TYPE_MALE},
+	{Name: "en-US-AvaNeural", Gender: protocol.GENDER_TYPE_FEMALE},
+	{Name: "en-US-AndrewNeural", Gender: protocol.GENDER_TYPE_MALE},
+	{Name: "en-US-EmmaNeural", Gender: protocol.GENDER_TYPE_FEMALE},
+	{Name: "en-US-BrianNeural", Gender: protocol.GENDER_TYPE_MALE},
+	{Name: "en-US-JennyNeural", Gender: protocol.GENDER_TYPE_FEMALE},
+	{Name: "en-US-GuyNeural", Gender: protocol.GENDER_TYPE_MALE},
+	{Name: "en-US-RogerNeural", Gender: protocol.GENDER_TYPE_MALE},
+}
