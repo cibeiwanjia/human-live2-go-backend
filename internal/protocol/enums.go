@@ -1,0 +1,102 @@
+// Package protocol defines all enums, messages and responses for the API
+// This package mirrors the Python protocol.py and frontend protocol.ts
+package protocol
+
+// ENGINE_TYPE represents the type of engine
+type ENGINE_TYPE string
+
+const (
+	ENGINE_TYPE_ASR   ENGINE_TYPE = "ASR"
+	ENGINE_TYPE_TTS   ENGINE_TYPE = "TTS"
+	ENGINE_TYPE_LLM   ENGINE_TYPE = "LLM"
+	ENGINE_TYPE_AGENT ENGINE_TYPE = "AGENT"
+)
+
+// GENDER_TYPE represents voice gender
+type GENDER_TYPE string
+
+const (
+	GENDER_TYPE_MALE   GENDER_TYPE = "MALE"
+	GENDER_TYPE_FEMALE GENDER_TYPE = "FEMALE"
+)
+
+// EVENT_TYPE represents SSE event types
+type EVENT_TYPE string
+
+const (
+	EVENT_TYPE_CONVERSATION_ID EVENT_TYPE = "CONVERSATION_ID"
+	EVENT_TYPE_MESSAGE_ID      EVENT_TYPE = "MESSAGE_ID"
+	EVENT_TYPE_TEXT            EVENT_TYPE = "TEXT"
+	EVENT_TYPE_THINK           EVENT_TYPE = "THINK"
+	EVENT_TYPE_TASK            EVENT_TYPE = "TASK"
+	EVENT_TYPE_DONE            EVENT_TYPE = "DONE"
+	EVENT_TYPE_ERROR           EVENT_TYPE = "ERROR"
+)
+
+// PARAM_TYPE represents parameter types for engine configuration
+type PARAM_TYPE string
+
+const (
+	PARAM_TYPE_STRING PARAM_TYPE = "string"
+	PARAM_TYPE_INT    PARAM_TYPE = "int"
+	PARAM_TYPE_FLOAT  PARAM_TYPE = "float"
+	PARAM_TYPE_BOOL   PARAM_TYPE = "bool"
+)
+
+// AUDIO_TYPE represents audio format types
+type AUDIO_TYPE string
+
+const (
+	AUDIO_TYPE_MP3 AUDIO_TYPE = "mp3"
+	AUDIO_TYPE_WAV AUDIO_TYPE = "wav"
+)
+
+// ROLE_TYPE represents message roles in conversation
+type ROLE_TYPE string
+
+const (
+	ROLE_TYPE_SYSTEM    ROLE_TYPE = "system"
+	ROLE_TYPE_USER      ROLE_TYPE = "user"
+	ROLE_TYPE_ASSISTANT ROLE_TYPE = "assistant"
+	ROLE_TYPE_TOOL      ROLE_TYPE = "tool"
+)
+
+// INFER_TYPE represents inference mode
+type INFER_TYPE string
+
+const (
+	INFER_TYPE_NORMAL INFER_TYPE = "normal"
+	INFER_TYPE_STREAM INFER_TYPE = "stream"
+)
+
+// RESPONSE_CODE represents API response codes
+type RESPONSE_CODE int
+
+const (
+	RESPONSE_CODE_OK    RESPONSE_CODE = 0
+	RESPONSE_CODE_ERROR RESPONSE_CODE = -1
+)
+
+// WS_RECV_ACTION_TYPE represents WebSocket actions received from client
+type WS_RECV_ACTION_TYPE string
+
+const (
+	WS_RECV_ACTION_PING          WS_RECV_ACTION_TYPE = "PING"
+	WS_RECV_ACTION_ENGINE_START  WS_RECV_ACTION_TYPE = "ENGINE_START"
+	WS_RECV_ACTION_PARTIAL_INPUT WS_RECV_ACTION_TYPE = "PARTIAL_INPUT"
+	WS_RECV_ACTION_FINAL_INPUT   WS_RECV_ACTION_TYPE = "FINAL_INPUT"
+	WS_RECV_ACTION_ENGINE_STOP   WS_RECV_ACTION_TYPE = "ENGINE_STOP"
+)
+
+// WS_SEND_ACTION_TYPE represents WebSocket actions sent to client
+type WS_SEND_ACTION_TYPE string
+
+const (
+	WS_SEND_ACTION_PONG                WS_SEND_ACTION_TYPE = "PONG"
+	WS_SEND_ACTION_ENGINE_INITIALIZING WS_SEND_ACTION_TYPE = "ENGINE_INITIALIZING"
+	WS_SEND_ACTION_ENGINE_STARTED      WS_SEND_ACTION_TYPE = "ENGINE_STARTED"
+	WS_SEND_ACTION_PARTIAL_OUTPUT      WS_SEND_ACTION_TYPE = "PARTIAL_OUTPUT"
+	WS_SEND_ACTION_FINAL_OUTPUT        WS_SEND_ACTION_TYPE = "FINAL_OUTPUT"
+	WS_SEND_ACTION_ENGINE_STOPPED      WS_SEND_ACTION_TYPE = "ENGINE_STOPPED"
+	WS_SEND_ACTION_ERROR               WS_SEND_ACTION_TYPE = "ERROR"
+)

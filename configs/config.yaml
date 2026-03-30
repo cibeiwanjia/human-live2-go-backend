@@ -1,0 +1,41 @@
+common:
+  name: "Awesome-Digital-Human"
+  version: "v3.0.0"
+  log_level: "debug"
+
+server:
+  ip: "0.0.0.0"
+  port: 8881
+  workspace_path: "./outputs"
+
+database:
+  type: "postgres"
+  host: "${DB_HOST:localhost}"
+  port: 5432
+  name: "${DB_NAME:digitalhuman}"
+  user: "${DB_USER:postgres}"
+  password: "${DB_PASSWORD:}"
+
+redis:
+  host: "${REDIS_HOST:localhost}"
+  port: 6379
+  password: "${REDIS_PASSWORD:}"
+  db: 0
+
+agents:
+  support_list:
+    - name: "RepeaterAgent"
+      type: "AGENT"
+      desc: "Repeat user input"
+  default: "RepeaterAgent"
+
+engines:
+  tts:
+    support_list:
+      - name: "EdgeTTS"
+        type: "TTS"
+        desc: "Microsoft Edge TTS"
+    default: "EdgeTTS"
+  asr:
+    support_list: []
+    default: ""
