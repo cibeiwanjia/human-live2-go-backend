@@ -2,6 +2,8 @@
 package server
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/wan-h/awesome-digital-human-live2d/go-backend/internal/config"
 	"github.com/wan-h/awesome-digital-human-live2d/go-backend/internal/pkg/logger"
@@ -36,6 +38,10 @@ func setupRoutes(router *gin.Engine) {
 	agentHandler := handlers.NewAgentHandler()
 	ttsHandler := handlers.NewTTSHandler()
 	asrHandler := handlers.NewASRHandler()
+
+	router.GET("/health", func(c *gin.Context) {
+		c.String(http.StatusOK, "OK")
+	})
 
 	v0 := router.Group(GlobalPrefix)
 	{
