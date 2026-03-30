@@ -56,6 +56,9 @@ type EngineListResp struct {
 
 // NewEngineListResp creates engine list response
 func NewEngineListResp(engines []EngineDesc) *EngineListResp {
+	if engines == nil {
+		engines = []EngineDesc{}
+	}
 	return &EngineListResp{
 		Code:    RESPONSE_CODE_OK,
 		Message: "success",
@@ -88,6 +91,9 @@ type EngineParamResp struct {
 
 // NewEngineParamResp creates engine parameter response
 func NewEngineParamResp(params []ParamDesc) *EngineParamResp {
+	if params == nil {
+		params = []ParamDesc{}
+	}
 	return &EngineParamResp{
 		Code:    RESPONSE_CODE_OK,
 		Message: "success",
@@ -104,6 +110,9 @@ type VoiceListResp struct {
 
 // NewVoiceListResp creates voice list response
 func NewVoiceListResp(voices []VoiceDesc) *VoiceListResp {
+	if voices == nil {
+		voices = []VoiceDesc{}
+	}
 	return &VoiceListResp{
 		Code:    RESPONSE_CODE_OK,
 		Message: "success",
