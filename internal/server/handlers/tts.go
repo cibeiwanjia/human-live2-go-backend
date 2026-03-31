@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"net/http"
 
@@ -106,7 +107,7 @@ func (h *TTSHandler) Infer(c *gin.Context) {
 	resp := &protocol.TTSEngineOutput{
 		Code:        protocol.RESPONSE_CODE_OK,
 		Message:     "success",
-		Data:        string(audioMsg.Data),
+		Data:        base64.StdEncoding.EncodeToString(audioMsg.Data),
 		SampleRate:  audioMsg.SampleRate,
 		SampleWidth: audioMsg.SampleWidth,
 	}
