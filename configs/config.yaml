@@ -32,7 +32,7 @@ agents:
       desc: "OpenAI compatible agent"
       config:
         # 填写你的 DeepSeek API Key
-        api_key: ""
+        api_key: "YOUR_DEEPSEEK_API_KEY_HERE"
         # DeepSeek API 地址
         base_url: "https://api.deepseek.com/v1"
         # 模型名称
@@ -50,9 +50,9 @@ engines:
         desc: "Tencent Cloud TTS"
         config:
           # 填写你的腾讯云凭证
-          app_id: ""
-          secret_id: ""
-          secret_key: ""
+          app_id: "YOUR_APP_ID_HERE"
+          secret_id: "YOUR_SECRET_ID_HERE"
+          secret_key: "YOUR_SECRET_KEY_HERE"
       - name: "SimpleTTS"
         type: "TTS"
         desc: "Simple Local TTS (requires say/espeak)"

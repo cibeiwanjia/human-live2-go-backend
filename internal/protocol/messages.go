@@ -29,8 +29,9 @@ type RoleMessage struct {
 
 // VoiceDesc describes a TTS voice
 type VoiceDesc struct {
-	Name   string      `json:"name"`
-	Gender GENDER_TYPE `json:"gender"`
+	Name        string      `json:"name"`
+	DisplayName string      `json:"display_name,omitempty"`
+	Gender      GENDER_TYPE `json:"gender"`
 }
 
 // ParamDesc describes an engine parameter
