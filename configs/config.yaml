@@ -42,21 +42,20 @@ agents:
 engines:
   tts:
     support_list:
-      - name: "EdgeTTS"
-        type: "TTS"
-        desc: "Microsoft Edge TTS (free, no setup required)"
       - name: "TencentTTS"
         type: "TTS"
         desc: "Tencent Cloud TTS"
         config:
-          # 填写你的腾讯云凭证
           app_id: "YOUR_APP_ID_HERE"
           secret_id: "YOUR_SECRET_ID_HERE"
           secret_key: "YOUR_SECRET_KEY_HERE"
+      - name: "EdgeTTS"
+        type: "TTS"
+        desc: "Microsoft Edge TTS (free, may have 403 issues)"
       - name: "SimpleTTS"
         type: "TTS"
         desc: "Simple Local TTS (requires say/espeak)"
-    default: "EdgeTTS"
+    default: "TencentTTS"
   asr:
     support_list:
       - name: "TencentASR"
