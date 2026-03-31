@@ -59,7 +59,14 @@ engines:
     default: "EdgeTTS"
   asr:
     support_list:
+      - name: "TencentASR"
+        type: "ASR"
+        desc: "Tencent Cloud ASR"
+        config:
+          secret_id: "YOUR_SECRET_ID_HERE"
+          secret_key: "YOUR_SECRET_KEY_HERE"
+          engine_model_type: "16k_zh"
       - name: "FunASR"
         type: "ASR"
-        desc: "FunASR Streaming ASR"
-    default: "FunASR"
+        desc: "FunASR Streaming ASR (requires local deployment)"
+    default: "TencentASR"

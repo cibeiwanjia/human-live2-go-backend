@@ -65,13 +65,13 @@ func (p *EnginePool) Setup(cfg *config.EnginesConfig) error {
 		var engine ASREngine
 		switch engineCfg.Name {
 		case "FunASR":
-			engine = asr.NewFunASR(nil)
+			engine = asr.NewFunASR(engineCfg.Config)
 		case "TencentASR":
-			engine = asr.NewTencentASR(nil)
+			engine = asr.NewTencentASR(engineCfg.Config)
 		case "DifyASR":
-			engine = asr.NewDifyASR(nil)
+			engine = asr.NewDifyASR(engineCfg.Config)
 		case "CozeASR":
-			engine = asr.NewCozeASR(nil)
+			engine = asr.NewCozeASR(engineCfg.Config)
 		}
 		if engine != nil {
 			p.asrEngines[engine.Name()] = engine
