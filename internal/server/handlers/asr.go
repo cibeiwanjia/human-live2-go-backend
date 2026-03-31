@@ -37,6 +37,10 @@ func (h *ASRHandler) GetEngineList(c *gin.Context) {
 
 func (h *ASRHandler) GetDefaultEngine(c *gin.Context) {
 	engineDesc := h.pool.GetDefaultEngine(protocol.ENGINE_TYPE_ASR)
+	if engineDesc.Name == "" {
+		c.JSON(http.StatusNotFound, protocol.NewErrorResponse("no default ASR engine configured"))
+		return
+	}
 	resp := protocol.NewEngineDefaultResp(engineDesc)
 	c.JSON(http.StatusOK, resp)
 }

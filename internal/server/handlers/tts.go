@@ -27,6 +27,10 @@ func (h *TTSHandler) GetEngineList(c *gin.Context) {
 
 func (h *TTSHandler) GetDefaultEngine(c *gin.Context) {
 	engineDesc := h.pool.GetDefaultEngine(protocol.ENGINE_TYPE_TTS)
+	if engineDesc.Name == "" {
+		c.JSON(http.StatusNotFound, protocol.NewErrorResponse("no default TTS engine configured"))
+		return
+	}
 	resp := protocol.NewEngineDefaultResp(engineDesc)
 	c.JSON(http.StatusOK, resp)
 }

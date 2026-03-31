@@ -41,9 +41,13 @@ func (h *AgentHandler) GetEngineList(c *gin.Context) {
 // GetDefaultEngine returns the default agent
 func (h *AgentHandler) GetDefaultEngine(c *gin.Context) {
 	defaultName := h.pool.Default()
+	if defaultName == "" {
+		c.JSON(404, protocol.NewErrorResponse("no default agent configured"))
+		return
+	}
 	ag, err := h.pool.Get(defaultName)
 	if err != nil {
-		c.JSON(500, protocol.NewErrorResponse("default agent not found"))
+		c.JSON(404, protocol.NewErrorResponse("default agent not found"))
 		return
 	}
 
