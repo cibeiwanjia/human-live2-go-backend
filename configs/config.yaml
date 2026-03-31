@@ -26,8 +26,15 @@ agents:
   support_list:
     - name: "RepeaterAgent"
       type: "AGENT"
-      desc: "Repeat user input"
-  default: "RepeaterAgent"
+      desc: "Repeat user input (for testing)"
+    - name: "OpenAIAgent"
+      type: "AGENT"
+      desc: "OpenAI compatible agent"
+      config:
+        api_key: "${LLM_API_KEY}"
+        base_url: "${LLM_BASE_URL}"
+        model: "${LLM_MODEL:deepseek-chat}"
+  default: "OpenAIAgent"
 
 engines:
   tts:
