@@ -12,15 +12,6 @@ type StubTTSEngine struct {
 	base.BaseEngine
 }
 
-func NewTencentTTS(config map[string]interface{}) *StubTTSEngine {
-	return &StubTTSEngine{
-		BaseEngine: base.BaseEngine{
-			Name_:      "TencentTTS",
-			Desc_:      "Tencent Cloud TTS",
-			InferType_: protocol.INFER_TYPE_NORMAL,
-		},
-	}
-}
 
 func (e *StubTTSEngine) Voices(ctx context.Context, config map[string]interface{}) ([]protocol.VoiceDesc, error) {
 	return []protocol.VoiceDesc{}, nil
@@ -35,6 +26,7 @@ func NewDifyTTS(config map[string]interface{}) *StubTTSEngine {
 		BaseEngine: base.BaseEngine{
 			Name_:      "DifyTTS",
 			Desc_:      "Dify TTS",
+			Type_:      protocol.ENGINE_TYPE_TTS,
 			InferType_: protocol.INFER_TYPE_NORMAL,
 		},
 	}
@@ -45,6 +37,7 @@ func NewCozeTTS(config map[string]interface{}) *StubTTSEngine {
 		BaseEngine: base.BaseEngine{
 			Name_:      "CozeTTS",
 			Desc_:      "Coze TTS",
+			Type_:      protocol.ENGINE_TYPE_TTS,
 			InferType_: protocol.INFER_TYPE_NORMAL,
 		},
 	}

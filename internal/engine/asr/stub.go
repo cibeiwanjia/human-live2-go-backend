@@ -25,6 +25,7 @@ func NewFunASR(config map[string]interface{}) *StubASREngine {
 		BaseEngine: base.BaseEngine{
 			Name_:      "FunASR",
 			Desc_:      "FunASR Streaming ASR",
+			Type_:      protocol.ENGINE_TYPE_ASR,
 			InferType_: protocol.INFER_TYPE_STREAM,
 		},
 	}
@@ -35,6 +36,7 @@ func NewTencentASR(config map[string]interface{}) *StubASREngine {
 		BaseEngine: base.BaseEngine{
 			Name_:      "TencentASR",
 			Desc_:      "Tencent Cloud ASR",
+			Type_:      protocol.ENGINE_TYPE_ASR,
 			InferType_: protocol.INFER_TYPE_STREAM,
 		},
 	}
@@ -45,6 +47,7 @@ func NewDifyASR(config map[string]interface{}) *StubASREngine {
 		BaseEngine: base.BaseEngine{
 			Name_:      "DifyASR",
 			Desc_:      "Dify ASR",
+			Type_:      protocol.ENGINE_TYPE_ASR,
 			InferType_: protocol.INFER_TYPE_STREAM,
 		},
 	}
@@ -55,6 +58,7 @@ func NewCozeASR(config map[string]interface{}) *StubASREngine {
 		BaseEngine: base.BaseEngine{
 			Name_:      "CozeASR",
 			Desc_:      "Coze ASR",
+			Type_:      protocol.ENGINE_TYPE_ASR,
 			InferType_: protocol.INFER_TYPE_STREAM,
 		},
 	}

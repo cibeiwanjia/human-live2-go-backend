@@ -47,11 +47,13 @@ func (p *EnginePool) Setup(cfg *config.EnginesConfig) error {
 		case "EdgeTTS":
 			engine = tts.NewEdgeTTS()
 		case "TencentTTS":
-			engine = tts.NewTencentTTS(nil)
+			engine = tts.NewTencentTTS(engineCfg.Config)
+		case "SimpleTTS":
+			engine = tts.NewSimpleTTS(engineCfg.Config)
 		case "DifyTTS":
-			engine = tts.NewDifyTTS(nil)
+			engine = tts.NewDifyTTS(engineCfg.Config)
 		case "CozeTTS":
-			engine = tts.NewCozeTTS(nil)
+			engine = tts.NewCozeTTS(engineCfg.Config)
 		}
 		if engine != nil {
 			p.ttsEngines[engine.Name()] = engine

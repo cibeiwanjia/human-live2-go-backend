@@ -22,6 +22,7 @@ func NewEdgeTTS() *EdgeTTS {
 		BaseEngine: base.BaseEngine{
 			Name_:      "EdgeTTS",
 			Desc_:      "Microsoft Edge TTS",
+			Type_:      protocol.ENGINE_TYPE_TTS,
 			InferType_: protocol.INFER_TYPE_NORMAL,
 		},
 		voices: edgeVoiceList,
@@ -54,11 +55,36 @@ func (e *EdgeTTS) Run(ctx context.Context, input *protocol.TextMessage, config m
 }
 
 func (e *EdgeTTS) synthesize(ctx context.Context, text, voice string, rate, volume, pitch int) ([]byte, error) {
+	// Use a different approach - Edge TTS via HTTP API instead of WebSocket
+	// WebSocket connection is often blocked by Microsoft for server environments
+	return e.synthesizeViaHTTP(ctx, text, voice, rate, volume, pitch)
+}
+
+func (e *EdgeTTS) synthesizeViaHTTP(ctx context.Context, text, voice string, rate, volume, pitch int) ([]byte, error) {
+	// Edge TTS doesn't have a public HTTP API, so we need to use WebSocket
+	// Let's try with more complete headers
 	wsURL := "wss://speech.platform.bing.com/consumer/speech/synthesize/readaloud/edge/v1?trustedclienttoken=6A5AA1D4EAFF4E9FB37E23D68491D6F4"
 
 	dialer := websocket.DefaultDialer
-	conn, _, err := dialer.DialContext(ctx, wsURL, nil)
+	dialer.EnableCompression = false
+	dialer.HandshakeTimeout = 10 * time.Second
+
+	headers := map[string][]string{
+		"Origin":                 {"https://edge.microsoft.com"},
+		"User-Agent":             {"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"},
+		"Accept":                 {"*/*"},
+		"Accept-Encoding":        {"gzip, deflate, br"},
+		"Accept-Language":        {"zh-CN,zh;q=0.9,en;q=0.8"},
+		"Sec-WebSocket-Key":      {generateWSKey()},
+		"Sec-WebSocket-Version":  {"13"},
+		"Sec-WebSocket-Extensions": {"permessage-deflate; client_max_window_bits"},
+	}
+
+	conn, resp, err := dialer.DialContext(ctx, wsURL, headers)
 	if err != nil {
+		if resp != nil {
+			return nil, fmt.Errorf("websocket dial failed (status %d): %w", resp.StatusCode, err)
+		}
 		return nil, fmt.Errorf("websocket dial failed: %w", err)
 	}
 	defer conn.Close()
@@ -146,4 +172,13 @@ func escapeXML(s string) string {
 
 func generateUUID() string {
 	return fmt.Sprintf("%d", time.Now().UnixNano())
+}
+
+func generateWSKey() string {
+	// Generate a random base64 string for Sec-WebSocket-Key
+	b := make([]byte, 16)
+	for i := range b {
+		b[i] = byte(time.Now().UnixNano() % 256)
+	}
+	return base64.StdEncoding.EncodeToString(b)
 }

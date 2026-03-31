@@ -34,8 +34,21 @@ engines:
     support_list:
       - name: "EdgeTTS"
         type: "TTS"
-        desc: "Microsoft Edge TTS"
+        desc: "Microsoft Edge TTS (free, no setup required)"
+      - name: "TencentTTS"
+        type: "TTS"
+        desc: "Tencent Cloud TTS (requires credentials)"
+        config:
+          app_id: "${TENCENT_TTS_APP_ID:}"
+          secret_id: "${TENCENT_TTS_SECRET_ID:}"
+          secret_key: "${TENCENT_TTS_SECRET_KEY:}"
+      - name: "SimpleTTS"
+        type: "TTS"
+        desc: "Simple Local TTS (requires say/espeak)"
     default: "EdgeTTS"
   asr:
-    support_list: []
-    default: ""
+    support_list:
+      - name: "FunASR"
+        type: "ASR"
+        desc: "FunASR Streaming ASR"
+    default: "FunASR"

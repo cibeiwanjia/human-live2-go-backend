@@ -5,6 +5,7 @@ import "github.com/wan-h/awesome-digital-human-live2d/go-backend/internal/protoc
 type BaseEngine struct {
 	Name_      string
 	Desc_      string
+	Type_      protocol.ENGINE_TYPE
 	InferType_ protocol.INFER_TYPE
 }
 
@@ -13,7 +14,7 @@ func (e *BaseEngine) Name() string {
 }
 
 func (e *BaseEngine) Type() protocol.ENGINE_TYPE {
-	return protocol.ENGINE_TYPE_TTS
+	return e.Type_
 }
 
 func (e *BaseEngine) InferType() protocol.INFER_TYPE {
@@ -23,7 +24,7 @@ func (e *BaseEngine) InferType() protocol.INFER_TYPE {
 func (e *BaseEngine) Desc() protocol.EngineDesc {
 	return protocol.EngineDesc{
 		Name:      e.Name_,
-		Type:      protocol.ENGINE_TYPE_TTS,
+		Type:      e.Type_,
 		InferType: e.InferType_,
 		Desc:      e.Desc_,
 		Meta:      make(map[string]string),
