@@ -39,12 +39,69 @@ func NewOpenAIAgent(cfg *OpenAIConfig) *OpenAIAgent {
 	}
 }
 
+func (a *OpenAIAgent) Parameters() []protocol.ParamDesc {
+	return []protocol.ParamDesc{
+		{
+			Name:        "api_key",
+			Description: "OpenAI API Key",
+			Type:        protocol.PARAM_TYPE_STRING,
+			Required:    true,
+			Default:     "",
+		},
+		{
+			Name:        "base_url",
+			Description: "OpenAI API Base URL (optional, for custom endpoints)",
+			Type:        protocol.PARAM_TYPE_STRING,
+			Required:    false,
+			Default:     "",
+		},
+		{
+			Name:        "model",
+			Description: "Model name (e.g., gpt-3.5-turbo, gpt-4)",
+			Type:        protocol.PARAM_TYPE_STRING,
+			Required:    false,
+			Default:     "gpt-3.5-turbo",
+		},
+	}
+}
+
 func (a *OpenAIAgent) CreateConversation(ctx context.Context, config map[string]interface{}) (string, error) {
 	return uuid.New().String(), nil
 }
 
 func (a *OpenAIAgent) Run(ctx context.Context, req *AgentRequest) (<-chan *protocol.SSEEvent, error) {
 	ch := make(chan *protocol.SSEEvent, 20)
+
+	apiKey := ""
+	baseURL := ""
+	model := a.model
+
+	if req.Config != nil {
+		if v, ok := req.Config["api_key"].(string); ok && v != "" {
+			apiKey = v
+		}
+		if v, ok := req.Config["base_url"].(string); ok && v != "" {
+			baseURL = v
+		}
+		if v, ok := req.Config["model"].(string); ok && v != "" {
+			model = v
+		}
+	}
+
+	if apiKey == "" && a.client == nil {
+		return nil, errors.New("OpenAI API key not configured. Please provide api_key in frontend settings")
+	}
+
+	var client *openai.Client
+	if apiKey != "" {
+		config := openai.DefaultConfig(apiKey)
+		if baseURL != "" {
+			config.BaseURL = baseURL
+		}
+		client = openai.NewClientWithConfig(config)
+	} else {
+		client = a.client
+	}
 
 	go func() {
 		defer close(ch)
@@ -64,8 +121,8 @@ func (a *OpenAIAgent) Run(ctx context.Context, req *AgentRequest) (<-chan *proto
 			},
 		}
 
-		stream, err := a.client.CreateChatCompletionStream(ctx, openai.ChatCompletionRequest{
-			Model:    a.model,
+		stream, err := client.CreateChatCompletionStream(ctx, openai.ChatCompletionRequest{
+			Model:    model,
 			Messages: messages,
 			Stream:   true,
 		})
