@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	"fmt"
 
+	"github.com/google/uuid"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
 	tts "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/tts/v20190823"
@@ -137,6 +138,7 @@ func (e *TencentTTSEngine) Run(ctx context.Context, input *protocol.TextMessage,
 
 	request := tts.NewTextToVoiceRequest()
 	request.Text = common.StringPtr(input.Data)
+	request.SessionId = common.StringPtr(uuid.New().String())
 	request.VoiceType = common.Int64Ptr(int64(getVoiceType(voice)))
 	request.Speed = common.Float64Ptr(float64(speed))
 	request.Codec = common.StringPtr("mp3")
