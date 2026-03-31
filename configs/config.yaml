@@ -31,9 +31,12 @@ agents:
       type: "AGENT"
       desc: "OpenAI compatible agent"
       config:
-        api_key: "${LLM_API_KEY}"
-        base_url: "${LLM_BASE_URL}"
-        model: "${LLM_MODEL:deepseek-chat}"
+        # 填写你的 DeepSeek API Key
+        api_key: ""
+        # DeepSeek API 地址
+        base_url: "https://api.deepseek.com/v1"
+        # 模型名称
+        model: "deepseek-chat"
   default: "OpenAIAgent"
 
 engines:
@@ -44,11 +47,12 @@ engines:
         desc: "Microsoft Edge TTS (free, no setup required)"
       - name: "TencentTTS"
         type: "TTS"
-        desc: "Tencent Cloud TTS (requires credentials)"
+        desc: "Tencent Cloud TTS"
         config:
-          app_id: "${TENCENT_TTS_APP_ID:}"
-          secret_id: "${TENCENT_TTS_SECRET_ID:}"
-          secret_key: "${TENCENT_TTS_SECRET_KEY:}"
+          # 填写你的腾讯云凭证
+          app_id: ""
+          secret_id: ""
+          secret_key: ""
       - name: "SimpleTTS"
         type: "TTS"
         desc: "Simple Local TTS (requires say/espeak)"
