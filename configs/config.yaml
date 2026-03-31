@@ -1,0 +1,71 @@
+common:
+  name: "Awesome-Digital-Human"
+  version: "v3.0.0"
+  log_level: "debug"
+
+server:
+  ip: "0.0.0.0"
+  port: 8881
+  workspace_path: "./outputs"
+
+database:
+  type: "postgres"
+  host: "${DB_HOST:localhost}"
+  port: 5432
+  name: "${DB_NAME:digitalhuman}"
+  user: "${DB_USER:postgres}"
+  password: "${DB_PASSWORD:}"
+
+redis:
+  host: "${REDIS_HOST:localhost}"
+  port: 6379
+  password: "${REDIS_PASSWORD:}"
+  db: 0
+
+agents:
+  support_list:
+    - name: "RepeaterAgent"
+      type: "AGENT"
+      desc: "Repeat user input (for testing)"
+    - name: "OpenAIAgent"
+      type: "AGENT"
+      desc: "OpenAI compatible agent"
+      config:
+        # 填写你的 DeepSeek API Key
+        api_key: "YOUR_DEEPSEEK_API_KEY_HERE"
+        # DeepSeek API 地址
+        base_url: "https://api.deepseek.com/v1"
+        # 模型名称
+        model: "deepseek-chat"
+  default: "OpenAIAgent"
+
+engines:
+  tts:
+    support_list:
+      - name: "TencentTTS"
+        type: "TTS"
+        desc: "Tencent Cloud TTS"
+        config:
+          app_id: "YOUR_APP_ID_HERE"
+          secret_id: "YOUR_SECRET_ID_HERE"
+          secret_key: "YOUR_SECRET_KEY_HERE"
+      - name: "EdgeTTS"
+        type: "TTS"
+        desc: "Microsoft Edge TTS (free, may have 403 issues)"
+      - name: "SimpleTTS"
+        type: "TTS"
+        desc: "Simple Local TTS (requires say/espeak)"
+    default: "TencentTTS"
+  asr:
+    support_list:
+      - name: "TencentASR"
+        type: "ASR"
+        desc: "Tencent Cloud ASR"
+        config:
+          secret_id: "YOUR_SECRET_ID_HERE"
+          secret_key: "YOUR_SECRET_KEY_HERE"
+          engine_model_type: "16k_zh"
+      - name: "FunASR"
+        type: "ASR"
+        desc: "FunASR Streaming ASR (requires local deployment)"
+    default: "TencentASR"
