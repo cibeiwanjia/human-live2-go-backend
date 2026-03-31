@@ -32,6 +32,48 @@ type tencentTTSResponse struct {
 	Audio   string `json:"Audio"`
 }
 
+func (e *TencentTTSEngine) Parameters() []protocol.ParamDesc {
+	return []protocol.ParamDesc{
+		{
+			Name:        "app_id",
+			Description: "Tencent Cloud App ID",
+			Type:        protocol.PARAM_TYPE_STRING,
+			Required:    true,
+			Default:     "",
+		},
+		{
+			Name:        "secret_id",
+			Description: "Tencent Cloud Secret ID",
+			Type:        protocol.PARAM_TYPE_STRING,
+			Required:    true,
+			Default:     "",
+		},
+		{
+			Name:        "secret_key",
+			Description: "Tencent Cloud Secret Key",
+			Type:        protocol.PARAM_TYPE_STRING,
+			Required:    true,
+			Default:     "",
+		},
+		{
+			Name:        "voice",
+			Description: "Voice type (ZhiMei, ZhiYu, RuiXin, YunJie, YunXi)",
+			Type:        protocol.PARAM_TYPE_STRING,
+			Required:    false,
+			Default:     "ZhiMei",
+			Choices:     []string{"ZhiMei", "ZhiYu", "RuiXin", "YunJie", "YunXi"},
+		},
+		{
+			Name:        "speed",
+			Description: "Speech speed (-2 to 2)",
+			Type:        protocol.PARAM_TYPE_INT,
+			Required:    false,
+			Default:     0,
+			Range:       []string{"-2", "2"},
+		},
+	}
+}
+
 func NewTencentTTS(config map[string]interface{}) *TencentTTSEngine {
 	appID := ""
 	secretID := ""
